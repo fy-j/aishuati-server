@@ -71,7 +71,7 @@ public class AdminService {
         return adminMapper.getAdminByAdminAccount(adminAccount);
     }
 
-    public Administrator getAdminByAdminName(String adminName,int page,int size){
+    public List<AdminInfo> getAdminByAdminName(String adminName,int page,int size){
         return adminMapper.getAdminByAdminname(adminName,(page-1)*size,size);
     }
 

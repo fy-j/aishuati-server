@@ -39,7 +39,7 @@ public class NewsService {
     }
 
     public List<News> showMyAllNews(int stuId,int page,int size){
-        return newsMapper.showMyNews(stuId,(page-1)*size,size);
+        return newsMapper.showMyAllNews(stuId,(page-1)*size,size);
     }
 
     public int showMyNewsCount(int stuId){

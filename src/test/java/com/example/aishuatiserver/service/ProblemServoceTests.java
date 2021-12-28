@@ -61,7 +61,7 @@ public class ProblemServoceTests {
         problem.setDifficult(1);
         problem.setCorrect(1);
         problem.setReference("wu");
-        int rows = problemService.updateSigleProblemById(problem);
+        int rows = problemService.updateSingleProblemById(problem);
         Assert.assertEquals(rows,1,1);
     }
 }

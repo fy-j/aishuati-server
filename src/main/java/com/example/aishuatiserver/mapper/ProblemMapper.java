@@ -23,7 +23,7 @@ public interface ProblemMapper {
             "where problem_type = 1 and stu_id = #{stuId} limit #{offSize},#{size}")
     List<ChoiceProblemInfo> getAllChoiceProblemInfo(int stuId,int offSize,int size);
 
-    @Select("select problem_Id as problemId,subject_Name as subjectName,Administrator_id as administratorId,difficult,info_text_content,correct as ans,choice_A,choice_B,choice_C,choice_D,reference " +
+    @Select("select problem_Id as problemId,subject_Name as subjectName,Administrator_id as administratorId,difficult,info_text_content,correct,choice_A,choice_B,choice_C,choice_D,reference " +
             "from problem left join subject on problem.subject_Id = subject.subject_Id where problem_type = 1 order by problem.subject_Id limit #{offset},#{size}")
     List<ChoiceProblemInfo> adminGetAllChoiceProblem(int offset,int size);
 
@@ -134,7 +134,7 @@ public interface ProblemMapper {
     int SearchMyWrongProblemCount(int stuId,Integer subjectId,Integer problemId);
 
     @Select("<script>"+
-                "select problem_Id as problemId,subject_Name as subjectName,Administrator_id as administratorId,difficult,info_text_content,correct as ans,choice_A,choice_B,choice_C,choice_D,reference " +
+                "select problem_Id as problemId,subject_Name as subjectName,Administrator_id as administratorId,difficult,info_text_content,correct,choice_A,choice_B,choice_C,choice_D,reference " +
                 "from problem left join subject on problem.subject_Id = subject.subject_Id where problem_type = 1 " +
                 "<if test = \"subjectName != null\"> and subject_Name = #{subjectName} </if> " +
                 "<if test = \"problemId != null\"> and problem.problem_Id = #{problemId} </if> " +
@@ -175,7 +175,7 @@ public interface ProblemMapper {
 
     @Update("update problem set difficult = #{difficult}  ,info_text_content=#{infoTextContent}, correct=#{correct},choice_A=#{choiceA}," +
             "choice_B=#{choiceB},choice_C=#{choiceC},choice_D=#{choiceD},reference=#{reference} where problem_Id=#{problemId}")
-    Integer updateSigleProblemById(int problemId,int difficult,
+    Integer updateSingleProblemById(int problemId,int difficult,
                                 String infoTextContent,
                                 int correct,
                                 String  choiceA,

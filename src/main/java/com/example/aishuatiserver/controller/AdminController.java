@@ -49,6 +49,23 @@ public class AdminController {
         return ResponseConstant.V_ADD_SUCCESS;
     }
 
+    @RequestMapping(value = "/add",method = RequestMethod.POST)
+    public Map<String,Object> addStu(
+            @RequestBody JSONObject p,
+            HttpServletRequest request
+    ){
+        String stuAccount = p.getString("stuAccount");
+        String stuName = p.getString("stuName");
+        String pwd = p.getString("pwd");
+        String stuNickname = p.getString("stuNickName");
+        String stuEmail = p.getString("stuEmail");
+        String stuTelephoto = p.getString("stuTelephoto");
+        String majorName = p.getString("majorName");
+        String stu_level = p.getString("stu_level");
+        userService.reg(stuAccount,stuName,pwd,stuNickname,stuEmail,stuTelephoto,majorName,stu_level);
+        return ResponseConstant.V_ADD_SUCCESS;
+    }
+
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public Map<String, Object> login(
             @RequestBody JSONObject p,
@@ -101,6 +118,7 @@ public class AdminController {
             @PathVariable(value = "size") int size
     ){
         String adminName = p.getString("adminName");
+        if(adminName!=null&&adminName.equals("")) adminName = null;
         return BaseResponsePackageUtil.baseData(
                 ImmutableMap.of(
                         "total",adminService.getAdminByAdminNameCount(adminName),
@@ -201,6 +219,8 @@ public class AdminController {
     ){
         String stuName = p.getString("stuName");
         String stu_level = p.getString("stu_level");
+        if(stuName!=null&&stuName.equals("")) stuName = null;
+        if(stu_level!=null&&stu_level.equals("")) stu_level = null;
         return BaseResponsePackageUtil.baseData(
                 ImmutableMap.of(
                   "total",userService.SearchStudentCount(stuName,stu_level),

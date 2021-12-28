@@ -29,8 +29,14 @@ public interface AdminMapper {
     @Select("select Administrator_id,Administrator_Account,Administrator_name,Administrator_pwd,Administrator_email,Administrator_telephone,Administrator_createTime,state from administrator where administrator_Account = #{aminAccount}")
     Administrator getAdminByAdminAccount(String aminAccount);
 
-    @Select("select * from administrator where administrator_Name = #{adminName} limit #{offset},#{size}")
-    Administrator getAdminByAdminname(String adminName,int offset,int size);
+    @Select("<script>" +
+            "select Administrator_id as adminId,Administrator_account as adminAccount,Administrator_name as adminName,Administrator_email as adminEmail,Administrator_telephone as adminTelephoto,Administrator_createtime as adminCreateTime,state from administrator " +
+            "<where> " +
+            "<if test = \"adminName != null\"> administrator_Name = #{adminName} </if>" +
+            "</where>" +
+            "limit #{offset},#{size} " +
+            "</script>")
+    List<AdminInfo> getAdminByAdminname(String adminName,int offset,int size);
 
     @Select("select count(*) from (select administrator_Id from administrator where administrator_Name = #{adminName}) as a")
     int getAdminByAdminNameCount(String adminName);

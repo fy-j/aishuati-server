@@ -138,8 +138,8 @@ public class ProblemService {
         return problemMapper.getSubjectiveProblemByProblem(problemId);
     }
 
-    public int  updateSigleProblemById(Problem problem){
-        int row = problemMapper.updateSigleProblemById(problem.getProblemId(),
+    public int  updateSingleProblemById(Problem problem){
+        int row = problemMapper.updateSingleProblemById(problem.getProblemId(),
                 problem.getDifficult(),problem.getInfo_text_content(),
                 problem.getCorrect(), problem.getChoice_A(),problem.getChoice_B(),
                 problem.getChoice_C(),problem.getChoice_D(),problem.getReference());

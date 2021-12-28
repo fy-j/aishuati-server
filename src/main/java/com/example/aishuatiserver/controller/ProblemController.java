@@ -268,8 +268,8 @@ public class ProblemController {
         return BaseResponsePackageUtil.baseData(problemService.getSubjectiveProblemByProblemId(problemId));
     }
 
-    @RequestMapping(value = "/updateSigleProblem")
-    public Map<String,Object> updateSigleProblemById(
+    @RequestMapping(value = "/updateSingleProblem")
+    public Map<String,Object> updateSingleProblemById(
             @RequestBody JSONObject p
     ){
         Problem problem = new Problem();
@@ -278,13 +278,13 @@ public class ProblemController {
         problem.setChoice_B(p.getString("choice_B"));
         problem.setChoice_C(p.getString("choice_C"));
         problem.setChoice_D(p.getString("choice_D"));
-        problem.setInfo_text_content(p.getString("Info_text_content"));
+        problem.setInfo_text_content(p.getString("info_text_content"));
         problem.setDifficult(p.getInteger("difficult"));
-        problem.setCorrect(p.getInteger("correct"));
+        problem.setCorrect(Integer.valueOf(p.getString("correct")).intValue());
         problem.setReference(p.getString("reference"));
         int row=0;
         try {
-            row = problemService.updateSigleProblemById(problem);
+            row = problemService.updateSingleProblemById(problem);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -297,7 +297,7 @@ public class ProblemController {
     ){
 
         Integer problemId=p.getInteger("problemId");
-        String Info_text_content =p.getString("Info_text_content");
+        String Info_text_content =p.getString("info_text_content");
         Integer difficult =p.getInteger("difficult");
         String reference =p.getString("reference");
 

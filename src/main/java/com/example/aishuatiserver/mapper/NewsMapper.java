@@ -20,7 +20,7 @@ public interface NewsMapper {
             "</script>")
     void sendNews(@Param(value = "list") List<News> list);
 
-    @Update("update news set state = 1 where sander_Id = #{senderId},receiver_Id = #{receiverId},createTime = #{date}")
+    @Update("update news set state = 1 where sander_Id = #{senderId} and receiver_Id = #{receiverId} and createTime = #{date}")
     void readNews(int senderId, int receiverId, Date date);
 
     @Select("select sander_Id,receiver_Id,content,createTime,state from news where receiver_Id = #{stuId} and state = 0 order by createTime limit #{offset},#{size}")

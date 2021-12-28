@@ -93,7 +93,7 @@ public class ProblemMapperTests {
 
     @Test
     public void updateSigleProblemById(){
-        int row = problemMapper.updateSigleProblemById(13,1,"飒飒江户时代记得哈结婚登记撒谎觉得还是",2,"1","2","3","4","z暂无解析");
+        int row = problemMapper.updateSingleProblemById(13,1,"飒飒江户时代记得哈结婚登记撒谎觉得还是",2,"1","2","3","4","z暂无解析");
         Assert.assertEquals(row,1,1);
     }
 

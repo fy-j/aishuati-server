@@ -39,11 +39,10 @@ public class ExamPaperController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/download", method = RequestMethod.POST)
+    @RequestMapping(value = "/download", method = RequestMethod.GET)
     public ResponseEntity<FileSystemResource> download(
-            @RequestBody JSONObject p
+            @RequestParam(value = "filename") String filename
     ) {
-        String filename = p.getString("filename");
         if (filename == null) {
             return ResponseEntity.badRequest().build();
         }

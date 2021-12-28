@@ -40,7 +40,7 @@ public class AdminMapperTest {
         Assert.assertEquals(adminInfo.getAdminAccount(),"adminTest");
         Assert.assertEquals(adminInfo.getAdminName(),"test");
         Assert.assertEquals(adminInfo.getAdminEmail(),"123456@qq.com");
-        Assert.assertEquals(adminInfo.getAdminTelephoto(),"12141");
+        Assert.assertEquals(adminInfo.getAdminTelephoto(),"12148888a");
     }
 
     /**

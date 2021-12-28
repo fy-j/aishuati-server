@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -36,60 +38,67 @@ public class NewsController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/send",method = RequestMethod.POST)
-    public Map<String,Object> sendNews(
+    @RequestMapping(value = "/send", method = RequestMethod.POST)
+    public Map<String, Object> sendNews(
             @RequestBody JSONObject p,
             HttpServletRequest request
-    ){
+    ) {
         List<Integer> list = p.getJSONArray("list").toJavaList(Integer.class);
 //        List<Integer> list1 = p.getObject("list", TypeReference.LIST_STRING);
 //        Map<String,Map<String,String>> map=JSONObject.parseObject(p.toJSONString(),new TypeReference<Map<String,Map<String,String>>>(){});
 //        List<Integer> list1 = JSONObject.parseObject(p.getJSONArray("list").toJSONString(),new TypeReference<ArrayList<Integer>>(){});
         String content = p.getString("content");
         int adminId = adminService.getAdminIdFromSession(request.getSession());
-        newsService.sendNews(list,adminId,content);
+        newsService.sendNews(list, adminId, content);
         return ResponseConstant.V_USER_SEND_SUCCESS;
     }
 
     @RequestMapping(value = "/read", method = RequestMethod.POST)
-    public Map<String,Object> readNews(
+    public Map<String, Object> readNews(
             @RequestBody JSONObject p,
             HttpServletRequest request
-    ){
+    ) {
         int senderId = p.getInteger("senderId");
         int receiverId = userService.getStuIdBySession(request.getSession());
-        Date date = p.getDate("date");
-        newsService.readNews(senderId,receiverId,date);
+        String dateStr = p.getString("date");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = null;
+        try {
+            date = simpleDateFormat.parse(dateStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        newsService.readNews(senderId, receiverId, date);
         return BaseResponsePackageUtil.succeedMessage("消息已读");
     }
 
     @RequestMapping(value = "/showMyNews", method = RequestMethod.POST)
-    public Map<String,Object> showMyNews(
+    public Map<String, Object> showMyNews(
             @RequestBody JSONObject p,
             HttpServletRequest request
-    ){
+    ) {
         int stuId = userService.getStuIdBySession(request.getSession());
         int page = p.getInteger("page");
         int pageSize = p.getInteger("pageSize");
         return BaseResponsePackageUtil.baseData(
                 ImmutableMap.of(
-                    "total",newsService.showMyNewsCount(stuId),
-                    "data",newsService.showMyNews(stuId,page,pageSize)
+                        "total", newsService.showMyNewsCount(stuId),
+                        "data", newsService.showMyNews(stuId, page, pageSize)
                 ));
     }
 
     @RequestMapping(value = "/showMyAllNews", method = RequestMethod.POST)
-    public Map<String,Object> showMyAllNews(
+    public Map<String, Object> showMyAllNews(
             @RequestBody JSONObject p,
             HttpServletRequest request
-    ){
+    ) {
         int stuId = userService.getStuIdBySession(request.getSession());
         int page = p.getInteger("page");
         int pageSize = p.getInteger("pageSize");
         return BaseResponsePackageUtil.baseData(
                 ImmutableMap.of(
-                        "total",newsService.showMyAllNewsCount(stuId),
-                        "data",newsService.showMyAllNews(stuId,page,pageSize)
+                        "total", newsService.showMyAllNewsCount(stuId),
+                        "data", newsService.showMyAllNews(stuId, page, pageSize)
                 ));
     }
 }
