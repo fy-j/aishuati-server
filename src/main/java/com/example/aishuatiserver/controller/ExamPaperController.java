@@ -121,7 +121,7 @@ public class ExamPaperController {
         String subjectName = p.getString("subjectName");
         Integer examPaperId = p.getInteger("examPaperId");
         int stuId = userService.getStuIdBySession(request.getSession());
-        if(examPaperId == 0) examPaperId = null;
+        if(examPaperId!=null&&examPaperId == 0) examPaperId = null;
         return BaseResponsePackageUtil.baseData(
           ImmutableMap.of(
                   "total",examPaperService.stuSearchMyExamPaperCount(stuId,subjectName,examPaperId),

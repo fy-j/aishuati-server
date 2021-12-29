@@ -43,22 +43,20 @@ public interface ExamPaperMapper {
             "select exampaper_Id as examPaperId,subject_Name as subjectName,Administrator_id as adminId,exampaper_name as examPaperName,grade_level as level,exampaper_address as examPaperAddress,create_time as createTime,exampaper_from as examPaperFrom " +
             "from exampaper left join subject on exampaper.subject_Id = subject.subject_Id where exampaper.subject_Id in " +
             "(select subject_Id from possesse where stu_Id = #{stuId}) " +
-            "<where>" +
-            "<if test = \"SubjectName != null\"> subject_Name = #{subjectName} </if> " +
+            "<if test = \"subjectName != null\"> and subject_Name = #{subjectName} </if> " +
             "<if test = \"examPaperId != null\"> and exampaper_Id = #{examPaperId} </if>" +
-            "</where> " +
             "limit #{offset},#{size}" +
             "</script>")
     List<ExamPaperInfo> searchMyExamPaper(int stuId,String subjectName,Integer examPaperId,int offset,int size);
 
     @Select("<script>" +
-                "select count(*) from (select exampaper_Id,subject_Name from exampaper left join on subject on exampaper.subject_Id = subject.subject_Id where exampaper.subject_Id in " +
+                "select count(*) from (select exampaper_Id,subject_Name from exampaper left join subject on exampaper.subject_Id = subject.subject_Id where exampaper.subject_Id in " +
                 "(select subject_Id from possesse where stu_Id = #{stuId}) " +
-                "<if test = \"SubjectName != null\"> and subject_Name = #{subjectName} </if> " +
+                "<if test = \"subjectName != null\"> and subject_Name = #{subjectName} </if> " +
                 "<if test = \"examPaperId != null\"> and exampaper_Id = #{examPaperId} </if>" +
                 ") as a" +
             "</script>")
-    int searchMyExamPaperCount(int stuId,String SubjectName,Integer examPaperId);
+    int searchMyExamPaperCount(int stuId,String subjectName,Integer examPaperId);
 
     @Select("select exampaper_Id as examPaperId,subject_Name as subjectName,Administrator_id as adminId,exampaper_name as examPaperName,grade_level as level,exampaper_address as examPaperAddress,create_time as createTime,exampaper_from as examPaperFrom " +
             "from exampaper left join subject on exampaper.subject_Id = subject.subject_Id where subject_Name = #{subjectName} limit #{offset},#{size}")
