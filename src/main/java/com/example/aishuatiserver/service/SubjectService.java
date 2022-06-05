@@ -52,6 +52,10 @@ public class SubjectService {
         return subjectMapper.getSubjectIdByName(subjectName);
     }
 
+    public boolean isok(int stuId,String subjectName){
+        return subjectMapper.isHas(stuId,subjectName) == 0 ? true:false;
+    }
+
     public void choiceSubject(int stuId,String subjectName){
         int subjectId = getSubjectIdByName(subjectName);
         subjectMapper.choiceSubject(stuId,subjectId);

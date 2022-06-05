@@ -51,4 +51,7 @@ public interface SubjectMapper {
 
     @Select("select subject_Id as subjectId,major_Id as majorId,subject_Name as subjectName,subject_level as subjectLevel from subject where subject_Id = #{subjectId}")
     SubjectInfo getSubjectInfo(int subjectId);
+
+    @Select("select count(*) from (select stu_Id from possesse left join subject on possesse.subject_Id = subject.subject_Id where stu_Id = #{stuId} and subject_Name = #{subjectName}) as a")
+    int isHas(int stuId,String subjectName);
 }

@@ -43,6 +43,7 @@ public class NewsController {
             @RequestBody JSONObject p,
             HttpServletRequest request
     ) {
+        System.out.println(p.getJSONArray("list"));
         List<Integer> list = p.getJSONArray("list").toJavaList(Integer.class);
 //        List<Integer> list1 = p.getObject("list", TypeReference.LIST_STRING);
 //        Map<String,Map<String,String>> map=JSONObject.parseObject(p.toJSONString(),new TypeReference<Map<String,Map<String,String>>>(){});

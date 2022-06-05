@@ -21,7 +21,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CountDownLatch;
 
 @RestController
 @RequestMapping(value = "/examPaper")
@@ -122,6 +125,7 @@ public class ExamPaperController {
         Integer examPaperId = p.getInteger("examPaperId");
         int stuId = userService.getStuIdBySession(request.getSession());
         if(examPaperId!=null&&examPaperId == 0) examPaperId = null;
+        if(subjectName!=null&&subjectName.equals("")) subjectName = null;
         return BaseResponsePackageUtil.baseData(
           ImmutableMap.of(
                   "total",examPaperService.stuSearchMyExamPaperCount(stuId,subjectName,examPaperId),

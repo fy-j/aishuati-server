@@ -85,6 +85,7 @@ public class SubjectController {
     ){
         int stuId = userService.getStuIdBySession(request.getSession());
         String subjectName = p.getString("subjectName");
+        if (!subjectService.isok(stuId,subjectName)) return ResponseConstant.X_ALREADY_EXISTS;
         subjectService.choiceSubject(stuId,subjectName);
         return ResponseConstant.V_ADD_SUCCESS;
     }
@@ -96,6 +97,7 @@ public class SubjectController {
     ){
         String subjectName = p.getString("subjectName");
         Integer stuId = userService.getStuIdBySession(request.getSession());
+        if(subjectName!=null&&subjectName.equals("")) subjectName = null;
         return BaseResponsePackageUtil.baseData(subjectService.findBySubjectName(stuId,subjectName));
     }
 

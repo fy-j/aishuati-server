@@ -84,7 +84,7 @@ public class UserController {
             return BaseResponsePackageUtil.errorMessage("密码输入错误!");
         }
         eventLogService.addLog(stu, EventType.LOGIN);
-        userService.saveUserToSession(request.getSession(),stu);
+        userService.saveUserToSession(request.getSession(),stu);  //在HttpServletRequest.getSession方法的时候，会创建Session
         return ResponseConstant.V_USER_LOGIN_SUCCESS;
     }
 

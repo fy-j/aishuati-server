@@ -1,6 +1,7 @@
 package com.example.aishuatiserver.service;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.example.aishuatiserver.JavaBean.StuInfo;
 import com.example.aishuatiserver.JavaBean.Student;
 import com.example.aishuatiserver.mapper.MajorMapper;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
+import java.sql.Struct;
 import java.util.List;
 
 @Service
